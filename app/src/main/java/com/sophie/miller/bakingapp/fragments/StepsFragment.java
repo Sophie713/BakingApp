@@ -58,12 +58,13 @@ public class StepsFragment extends Fragment implements BaseListener {
                 viewModel.setChosenRecipe(recipeObjects.get(viewModel.getChosenRecipePosition()));
                 activity.setTitle(viewModel.getChosenRecipe().getRecipeName());
                 steps.clear();
-                steps.add(getString(R.string.ingredients));
+                steps.add(0, getString(R.string.ingredients));
                 for (int i = 0; i < viewModel.getChosenRecipe().getSteps().size(); i++) {
                     steps.add(viewModel.getChosenRecipe().getSteps().get(i).getStepTitle());
-                    stepsAdapter.setSteps(steps);
-                    stepsAdapter.notifyDataSetChanged();
                 }
+                stepsAdapter.setSteps(steps);
+                stepsAdapter.notifyDataSetChanged();
+
             }
         });
     }

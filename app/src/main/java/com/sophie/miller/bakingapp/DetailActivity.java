@@ -26,7 +26,6 @@ public class DetailActivity extends AppCompatActivity {
     private FragmentManager manager = getSupportFragmentManager();
     MainViewModel viewModel;
     int chosenRecipePosition = 0;
-    private int selectedFragment = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class DetailActivity extends AppCompatActivity {
         stepsFragment = StepsFragment.newInstance();
         //if I haven't had it opened, I open the list of steps
         //if it there are both fragments, I am not choosing so I also do this
-        if (savedInstanceState == null||binding.activityDetailContainer2 != null) {
+        if (savedInstanceState == null) {
             //set my fragment visible
             manager.beginTransaction().
                     replace(R.id.activity_detail_container, stepsFragment).
@@ -62,10 +61,6 @@ public class DetailActivity extends AppCompatActivity {
                         replace(R.id.activity_detail_container2, stepDetailsFragment).
                         commitNow();
             }
-        } else {
-            //I have switched fragments, return my state
-            selectedFragment = savedInstanceState.getInt(Const.selectedFragment);
-            switchFragments(selectedFragment);
         }
 
     }
@@ -78,7 +73,6 @@ public class DetailActivity extends AppCompatActivity {
      * @param fragmentId 1 or 0
      */
     public void switchFragments(int fragmentId) {
-        selectedFragment = fragmentId;
         if (binding.activityDetailContainer2 == null) {
             Fragment fragment = fragmentId == 0 ? stepsFragment : stepDetailsFragment;
             manager.beginTransaction().replace(R.id.activity_detail_container, fragment).commit();
@@ -93,7 +87,6 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(Const.intentKeyChosenRecipe, chosenRecipePosition);
-        outState.putInt(Const.selectedFragment, selectedFragment);
         super.onSaveInstanceState(outState);
     }
 }

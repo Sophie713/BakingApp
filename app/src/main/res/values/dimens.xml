@@ -4,4 +4,5 @@
     <dimen name="dp12">12dp</dimen>
     <dimen name="dp8">8dp</dimen>
     <dimen name="default_side_margin">16dp</dimen>
+    <dimen name="dp40">40dp</dimen>
 </resources>

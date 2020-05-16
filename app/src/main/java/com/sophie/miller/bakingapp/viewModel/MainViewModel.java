@@ -33,11 +33,11 @@ public class MainViewModel extends AndroidViewModel {
     //list of recipes
     private LiveData<List<RecipeObject>> recipes;
     //chosen recipe
-    RecipeObject chosenRecipe = new RecipeObject(0, "Recipe", new ArrayList< IngredientObject>(), new ArrayList<StepsObject>(), 0);
+    private RecipeObject chosenRecipe = new RecipeObject(0, "Recipe", new ArrayList< IngredientObject>(), new ArrayList<StepsObject>(), 0);
     //chosen recipe position
     private int chosenRecipePosition = 0;
     //chosen step
-    MutableLiveData<Integer> chosenStep = new MutableLiveData<>(0);
+    private MutableLiveData<Integer> chosenStep = new MutableLiveData<>(0);
 
     //constructor
     public MainViewModel(Application application) {

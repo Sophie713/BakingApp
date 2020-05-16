@@ -28,6 +28,7 @@
 
         <ImageButton
             android:id="@id/exo_prev"
+            android:visibility="gone"
             style="@style/ExoMediaButton.Previous"
             android:tint="@color/colorAccent" />
 
@@ -38,12 +39,14 @@
 
         <ImageButton
             android:id="@+id/exo_shuffle"
+            android:visibility="gone"
             style="@style/ExoMediaButton"
             android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/exo_repeat_toggle"
             style="@style/ExoMediaButton"
+            android:visibility="gone"
             android:tint="@color/colorAccent" />
 
         <ImageButton
@@ -64,11 +67,13 @@
 
         <ImageButton
             android:id="@+id/exo_next"
+            android:visibility="gone"
             style="@style/ExoMediaButton.Next"
             android:tint="@color/colorAccent" />
 
         <ImageButton
             android:id="@+id/exo_vr"
+            android:visibility="gone"
             style="@style/ExoMediaButton"
             android:tint="@color/colorAccent" />
 
