@@ -13,14 +13,12 @@ public class StepsObject implements Parcelable {
     @SerializedName("description")
     private String stepDescription;
     private String videoURL;
-    private String thumbnailURL;
 
-    public StepsObject(int stepNumber, String stepTitle, String stepDescription, String videoURL, String thumbnailURL) {
+    public StepsObject(int stepNumber, String stepTitle, String stepDescription, String videoURL) {
         this.stepNumber = stepNumber;
         this.stepTitle = stepTitle;
         this.stepDescription = stepDescription;
         this.videoURL = videoURL;
-        this.thumbnailURL = thumbnailURL;
     }
 
     protected StepsObject(Parcel in) {
@@ -28,7 +26,6 @@ public class StepsObject implements Parcelable {
         stepTitle = in.readString();
         stepDescription = in.readString();
         videoURL = in.readString();
-        thumbnailURL = in.readString();
     }
 
     public static final Creator<StepsObject> CREATOR = new Creator<StepsObject>() {
@@ -59,10 +56,6 @@ public class StepsObject implements Parcelable {
         return videoURL;
     }
 
-    public String getThumbnailURL() {
-        return thumbnailURL;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -74,6 +67,5 @@ public class StepsObject implements Parcelable {
         dest.writeString(stepTitle);
         dest.writeString(stepDescription);
         dest.writeString(videoURL);
-        dest.writeString(thumbnailURL);
     }
 }

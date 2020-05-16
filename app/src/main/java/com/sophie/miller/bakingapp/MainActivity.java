@@ -1,44 +1,28 @@
 package com.sophie.miller.bakingapp;
 
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.Timeline;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.AdaptiveVideoTrackSelection;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.sophie.miller.bakingapp.adapters.RecipesAdapter;
 import com.sophie.miller.bakingapp.databinding.ActivityMainBinding;
 import com.sophie.miller.bakingapp.objects.RecipeObject;
-import com.sophie.miller.bakingapp.playerUtils.ExoPlayerListener;
-import com.sophie.miller.bakingapp.utils.GeneralUtils;
 import com.sophie.miller.bakingapp.viewModel.MainViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     ActivityMainBinding binding;
+    ArrayList<String> recipes = new ArrayList<>();
+    DetailActivity activity = null;
+
+    RecipesAdapter recipesAdapter = new RecipesAdapter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +30,40 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        GeneralUtils.log("onCreate");
+        binding.activityMainRecyclerView.setLayoutManager(new GridLayoutManager(this, getNumberOfColumns()));
+        binding.activityMainRecyclerView.hasFixedSize();
+        binding.activityMainRecyclerView.setAdapter(recipesAdapter);
 
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.getRecipes().observe(this, new Observer<List<RecipeObject>>() {
             @Override
             public void onChanged(List<RecipeObject> recipeObjects) {
-                GeneralUtils.log(recipeObjects.get(0).getRecipeName());
-                binding.test.setText(recipeObjects.get(0).getRecipeName());
+                recipes.clear();
+                for (int i = 0; i < recipeObjects.size(); i++) {
+                    recipes.add(recipeObjects.get(i).getRecipeName());
+                }
+                recipesAdapter.setRecipes(recipes);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        recipesAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
+    }
 
+    /**
+     * set number of columns based on screen size
+     *
+     * @return number of columns
+     */
+    private int getNumberOfColumns() {
+        // make a grid with a certain number of columns
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        return (width/600);
 
     }
 }
