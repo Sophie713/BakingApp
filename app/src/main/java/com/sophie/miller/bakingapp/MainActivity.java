@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     ArrayList<String> recipes = new ArrayList<>();
-    DetailActivity activity = null;
 
     RecipesAdapter recipesAdapter = new RecipesAdapter();
 

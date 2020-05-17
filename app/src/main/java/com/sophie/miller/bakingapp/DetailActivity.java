@@ -37,11 +37,11 @@ public class DetailActivity extends AppCompatActivity {
         //get the chosen recipe
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            chosenRecipePosition = intent.getIntExtra(Const.intentKeyChosenRecipe, 0);
+            chosenRecipePosition = intent.getIntExtra(Const.INTENT_KEY_CHOSEN_RECIPE, 0);
             GeneralUtils.log("" + chosenRecipePosition);
             viewModel.setChosenRecipePosition(chosenRecipePosition);
         } else {
-            chosenRecipePosition = savedInstanceState.getInt(Const.intentKeyChosenRecipe);
+            chosenRecipePosition = savedInstanceState.getInt(Const.INTENT_KEY_CHOSEN_RECIPE);
             GeneralUtils.log("" + chosenRecipePosition);
             viewModel.setChosenRecipePosition(chosenRecipePosition);
         }
@@ -86,7 +86,7 @@ public class DetailActivity extends AppCompatActivity {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(Const.intentKeyChosenRecipe, chosenRecipePosition);
+        outState.putInt(Const.INTENT_KEY_CHOSEN_RECIPE, chosenRecipePosition);
         super.onSaveInstanceState(outState);
     }
 }

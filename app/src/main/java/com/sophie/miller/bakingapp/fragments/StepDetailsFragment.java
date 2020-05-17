@@ -76,7 +76,7 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
         super.onCreate(savedInstanceState);
         //get video position if it has been saved
         if (savedInstanceState != null) {
-            videoPosition = savedInstanceState.getLong(Const.videoPosition);
+            videoPosition = savedInstanceState.getLong(Const.VIDEO_POSITION);
         }
         //get viemodel of my activity and retrieve data , observe selected step
         viewModel = ViewModelProviders.of(activity).get(MainViewModel.class);
@@ -196,8 +196,10 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
     @Override
     public void onPause() {
         super.onPause();
-        videoPosition = simpleExoPlayer.getCurrentPosition();
-        simpleExoPlayer.release();
+        if (simpleExoPlayer != null) {
+            videoPosition = simpleExoPlayer.getCurrentPosition();
+            simpleExoPlayer.release();
+        }
     }
 
     /**
@@ -246,7 +248,7 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(Const.videoPosition, videoPosition);
+        outState.putLong(Const.VIDEO_POSITION, videoPosition);
     }
 
     /**

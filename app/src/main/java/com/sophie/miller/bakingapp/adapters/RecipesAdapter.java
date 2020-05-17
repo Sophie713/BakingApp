@@ -32,7 +32,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<HolderListItemSingleStr
         holder.itemView.setOnClickListener(v -> {
             Context context = holder.itemView.getContext();
             Intent intent = new Intent(context, DetailActivity.class);
-            intent.putExtra(Const.intentKeyChosenRecipe, position);
+            intent.putExtra(Const.INTENT_KEY_CHOSEN_RECIPE, position);
             context.startActivity(intent);
         });
         holder.recipeTitle.setText(recipes.get(position));
