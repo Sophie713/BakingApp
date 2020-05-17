@@ -9,14 +9,14 @@ public class Prefs {
 
     private static final String PREFS = "prefs";
 
-    public void saveIngredients(String json, Context context) {
+    public void saveIngredients(String json, Context context, String WidgetId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(Const.WIDGET_DATA, json).apply();
+        editor.putString(Const.WIDGET_DATA+WidgetId, json).apply();
     }
 
-    public String getIngredients(Context context){
+    public String getIngredients(Context context, String WidgetId){
         SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
-        return prefs.getString(Const.WIDGET_DATA, "");
+        return prefs.getString(Const.WIDGET_DATA+WidgetId, "");
     }
 }

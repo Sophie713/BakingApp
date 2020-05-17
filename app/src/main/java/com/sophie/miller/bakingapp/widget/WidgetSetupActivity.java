@@ -89,7 +89,7 @@ public class WidgetSetupActivity extends AppCompatActivity {
         ArrayList<IngredientObject> ingredients = new ArrayList<>(recipeObj.get(position).getIngredients());
         String ingredientsJson = new Gson().toJson(ingredients);
         GeneralUtils.log(ingredientsJson);
-        new Prefs().saveIngredients(ingredientsJson, this);
+        new Prefs().saveIngredients(ingredientsJson, this, String.valueOf(appWidgetId));
 
 
         RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.widget_ingredients_list);

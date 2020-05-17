@@ -1,5 +1,6 @@
 package com.sophie.miller.bakingapp.widget;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -25,9 +26,11 @@ public class WidgetIngredientsService extends RemoteViewsService {
     class WidgetIngredientsListFactory implements RemoteViewsFactory {
 
         private ArrayList<IngredientObject> ingredients = new ArrayList<>();
-        Context context;
+        private Context context;
+        private int appWidgetId;
 
         public WidgetIngredientsListFactory(Context context, Intent intent) {
+            appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
             this.context = context;
         }
 
@@ -38,7 +41,7 @@ public class WidgetIngredientsService extends RemoteViewsService {
 
         @Override
         public void onDataSetChanged() {
-            String ingredientsJson = new Prefs().getIngredients(context);
+            String ingredientsJson = new Prefs().getIngredients(context, String.valueOf(appWidgetId));
             ingredients.clear();
             List<IngredientObject> list= new Gson().fromJson(ingredientsJson, new TypeToken<ArrayList<IngredientObject>>(){}.getType());
             ingredients.addAll(list);
